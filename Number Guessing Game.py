@@ -9,8 +9,6 @@ def game():
 
     number = random.randint(1,20)
 
-    print (number)
-
     print ('I am thinking of a number between 1 and 20, ' + name + '. What is it?')
 
     for attempts in range(1,6): #5 tries
