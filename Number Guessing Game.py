@@ -1,21 +1,18 @@
 # Number Guessing Game as seen on Al's YouTube Channel
-
-
-
-
-print ('How challenging do you want this game to be?')
-while True:
-    try:
-        maximum = int(input('Level 1 - 1000 : '))
-        if maximum not in range (1,1001):
-            raise ValueError
-        break
-    except ValueError:
-        print ('Choose a number from 1 to 1000')
-        continue
+#This version has been updated to modify game level before each new play.
 
     
-def game():      
+def game():
+    print ('How challenging do you want this game to be?')
+    while True:
+        try:
+            maximum = int(input('Level 1 - 1000 : '))
+            if maximum not in range (1,1001):
+                raise ValueError
+            break
+        except ValueError:
+            print ('Choose a number from 1 to 1000')
+            continue
     import random
 
     number = random.randint(1,int(maximum))
