@@ -15,7 +15,7 @@ def game():
             continue
     import random
 
-    number = random.randint(1,int(maximum))
+    number = random.randint(1,maximum)
 
     print ('I am thinking of a number between 1 and ' + str(maximum) + '. What is it?')
 
