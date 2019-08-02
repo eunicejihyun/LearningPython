@@ -21,7 +21,7 @@ def game():
     solution = list(words[random.randint(0, len(words)-1)])
 
     #to show available letters
-    alphabet = list('abcdefghijklmnopqrstuvwxyz')
+    alphabet = [chr(i) for i in range(97,123)]
 
     gameboard = list('_' * len(solution))
     wrong = 0
