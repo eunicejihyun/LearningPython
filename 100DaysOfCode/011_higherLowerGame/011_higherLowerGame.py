@@ -33,23 +33,24 @@ while True:
     comparisons = []
     print(logo)
     score = 0
-    a = {}
-    b = {}
     while True:
         print(vs)
-
-        comparisons.append([a, b])
-        comparisons.append([b, a])
 
         #Ensure that same combinations are not replayed
         while True:
             try:
-                a = data[randint(1, len(data)) - 1]
-                b = data[randint(1, len(data)) - 1]
+                if score > 0:
+                    a = b
+                    b = data[randint(1, len(data)) - 1]
+                else:
+                    a = data[randint(1, len(data)) - 1]
+                    b = data[randint(1, len(data)) - 1]
                 assert [a,b] not in comparisons and [b,a] not in comparisons and (a!=b), "Not a unique combination."
             except:
                 continue
             else:
+                comparisons.append([a, b])
+                comparisons.append([b, a])
                 break
 
         display(a)
