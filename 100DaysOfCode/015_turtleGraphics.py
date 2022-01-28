@@ -10,9 +10,7 @@ ej.speed(0)
 # changing color mode to RGB
 t.colormode(255)
 
-# colors = ['aquamarine', 'dark orange', 'orchid', 'cornflower blue', 'medium purple', 'powder blue',
-#           'royal blue', 'medium purple', 'light sea green', 'dark orchid']
-#
+
 # def random_color():
 #     r = randint(0,255)
 #     g = randint(0, 255)
