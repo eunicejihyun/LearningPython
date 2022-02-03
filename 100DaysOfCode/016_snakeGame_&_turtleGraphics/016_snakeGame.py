@@ -23,6 +23,17 @@ screen.onkey(key="Left", fun=snake.left)
 screen.onkey(key="Right", fun=snake.right)
 
 
+def replay():
+    response = screen.textinput("Replay?", "Would you like to play again? Type 'y' or 'n'.")
+
+    if response == 'y':
+        game_on = True
+    else:
+        game_on = False
+
+    return game_on
+
+
 game_on = True
 while game_on:
     screen.update()
@@ -33,18 +44,19 @@ while game_on:
     if snake.head.distance(food) < 15:
         food.refresh()
         snake.grow()
-        scoreboard.update_score()
+        scoreboard.increase_score()
 
     # Detect hitting wall
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
+        game_on = replay()
 
     # Detect hitting tail
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            game_on = replay()
 
 
 screen.exitonclick()
