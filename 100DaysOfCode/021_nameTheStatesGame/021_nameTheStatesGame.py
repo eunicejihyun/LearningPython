@@ -43,6 +43,9 @@ while len(guessed_states) < 50:
         title = f"Take a screenshot now!"
         break
 
+    elif guess in guessed_states:
+        prompt = "You already guessed that, silly! Try again."
+
     elif guess in all_states:
         data = df[df.state == guess]
         helper.goto(int(data.x), int(data.y))
@@ -50,9 +53,6 @@ while len(guessed_states) < 50:
         guessed_states.append(guess)
         title = f"{len(guessed_states)}/50 States Correct!"
         prompt = "Name another state state:"
-
-    elif guess in guessed_states:
-        prompt = "You already guessed that, silly! Try again."
 
     else:
         prompt = "Never heard of that state before! Try again."
