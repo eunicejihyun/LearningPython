@@ -2,12 +2,14 @@ from tkinter import *
 import tkinter.messagebox as mb
 from random import randint, shuffle, choice
 import pyperclip as pc
+import json
 
-BLUE = "#D7E9F7"
-GREEN = "#E7FBBE"
+BLUE = "#313552"
+GREEN = "#2EB086"
 WHITE = "#F9F9F9"
 font = ("Courier", 10)
 EMAIL = "your@email.com"
+DB = "creds.json"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -36,24 +38,52 @@ def generate_pw():
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_info():
-    web = website.get()
+    web = website.get().upper()
     un = username.get()
     pw = password.get()
+    new_data = {
+        web: {
+            "username": un,
+            "password": pw,
+        }}
 
-    if pw == "" or un == "":
+    if pw == "" or un == "" or web=="":
         mb.showerror(title="Pay attention!", message="Please complete all fields before attempting to save.")
 
     else:
-        proceed = mb.showinfo(title=web, message=f"You are attempting to save these details."
-                                                 f"\nUsername: {un}"
-                                                 f"\nPassword: {pw}"
-                                                 "\nWould you like to proceed?")
-
-        if proceed:
-            with open("mycreds.txt", mode="a") as file:
-                file.write(f"{web}\n   {un} | {pw}\n\n")
+        try:
+            with open(DB, mode="r") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            with open(DB, mode="w") as file:
+                json.dump(new_data, file, indent=4)
+        else:
+            data.update(new_data)
+            with open(DB, mode="w") as file:
+                json.dump(data, file, indent=4)
+        finally:
             website.delete(0, END)
             password.delete(0, END)
+
+
+# ---------------------------- Search Password ------------------------------- #
+
+def search():
+    web = website.get().upper()
+
+    try:
+
+        with open(DB, mode="r") as file:
+            data = json.load(file)
+
+        un = data[web]["username"]
+        pw = data[web]["password"]
+    except FileNotFoundError:
+        mb.showerror(title="Error", message="No credentials have been saved yet.")
+    except KeyError:
+        mb.showerror(title="Error", message=f"No credentials have been found for {web}.")
+    else:
+        mb.showinfo(title=f"{web} Credentials", message=f"Username: {un}\n Password: {pw}")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -80,8 +110,8 @@ password_text = Label(text="Password: ", bg=WHITE, font=font)
 password_text.grid(row=3, column=0, sticky='e')
 
 # Input Fields
-website = Entry(width=35)
-website.grid(row=1, column=1, columnspan=2, sticky='w')
+website = Entry(width=23)
+website.grid(row=1, column=1, sticky='w')
 username = Entry(width=35)
 username.grid(row=2, column=1, columnspan=2, sticky='w')
 username.insert(0, EMAIL)
@@ -89,9 +119,11 @@ password = Entry(width=23)
 password.grid(row=3, column=1, sticky='w')
 
 # Buttons
+search = Button(text="search", font=("Helvetica", 8), bg=GREEN, width=10, borderwidth=0, command=search)
+search.grid(row=1, column=2)
 generate = Button(text="generate", font=("Helvetica", 8), bg=GREEN, width=10, borderwidth=0, command=generate_pw)
 generate.grid(row=3, column=2, sticky='e')
-add = Button(text="add", font=("Helvetica", 8), bg=BLUE, width=35, borderwidth=0, command=save_info)
+add = Button(text="add", font=("Helvetica", 8), bg=BLUE, fg=WHITE, width=35, borderwidth=0, command=save_info)
 add.grid(row=4, column=1, columnspan=2, sticky='w')
 
 window.mainloop()
