@@ -14,7 +14,7 @@ DRINK_HISTORY = "drink_history.json"
 
 FROM_GMAIL = "your@gmail.com"
 PASSWORD = "yourpassword"
-TO_EMAIL = "to@gmail.com"
+TO_EMAIL = ["to@gmail.com", "to@gmail.com"]
 
 # Get today's date _____________________________________________________________________________________________________
 today = datetime.today().date().strftime("%Y%m%d")
@@ -55,7 +55,7 @@ if attempts >= 25:
 
 name = data["strDrink"]
 category = data["strCategory"]
-instructions = data["strInstructions"].replace(". ", ".<br>")
+instructions = data["strInstructions"]
 glass = data["strGlass"]
 
 # Create a dictionary of ingredients and measurements __________________________________________________________________
@@ -88,10 +88,11 @@ with open(DRINK_HISTORY, mode="w") as file:
 # Send Email ___________________________________________________________________________________________________________
 drink_search = f"https://www.google.com/search?q={name.replace(' ', '+')}+drink"
 
+
 message = MIMEMultipart("alternative")
 message['Subject'] = "Cheers! Friday's here~"
 message['From'] = FROM_GMAIL
-message['To'] = TO_EMAIL
+message['To'] = ", ".join(EMAIL_LIST)
 
 text = f"""\
 {name.upper()}\n\n{ingredients_msg}\n{instructions}\n\n{drink_search}\n\n
@@ -125,4 +126,4 @@ with s.SMTP("smtp.gmail.com") as connection:
     connection.login(user=FROM_GMAIL, password=PASSWORD)
     connection.send_message(msg=message,
                             from_addr=FROM_GMAIL,
-                            to_addrs=TO_EMAIL)
+                            to_addrs=EMAIL_LIST)
