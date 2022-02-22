@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from datetime import datetime, timedelta
 
-chrome_driver_path = r"C:\Users\Eunice Kim\Desktop\Development\chromedriver.exe"
+chrome_driver_path = r"C:\Users\YOURPATH\Desktop\Development\chromedriver.exe"
 driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
 
