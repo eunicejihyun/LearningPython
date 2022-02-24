@@ -2,7 +2,7 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
 
-G_FORM = "https://forms.gle/oapvpxupVp4r2haNA"
+G_FORM = "your google form link"
 
 
 class GformBot:
