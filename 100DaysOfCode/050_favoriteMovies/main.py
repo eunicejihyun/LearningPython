@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-MOVIE_DB_API_KEY = "8053f198c900a44b9cbf3d3ffb89cef6"
+MOVIE_DB_API_KEY = "YOUR_API_KEY"
 MOVIE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
 MOVIE_FIND_URL = "https://api.themoviedb.org/3/movie"
 MOVIE_POSTER_URL = "https://image.tmdb.org/t/p/original/"
