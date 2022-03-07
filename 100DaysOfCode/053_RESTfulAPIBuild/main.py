@@ -57,6 +57,25 @@ def search():
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
 
 
+@app.route("/add", methods=["POST"])
+def add():
+    new_cafe = Cafe(
+        name=request.form.get("name"),
+        map_url=request.form.get("map_url"),
+        img_url=request.form.get("img_url"),
+        location=request.form.get("loc"),
+        has_sockets=bool(request.form.get("sockets")),
+        has_toilet=bool(request.form.get("toilet")),
+        has_wifi=bool(request.form.get("wifi")),
+        can_take_calls=bool(request.form.get("calls")),
+        seats=request.form.get("seats"),
+        coffee_price=request.form.get("coffee_price"),
+    )
+    db.session.add(new_cafe)
+    db.session.commit()
+    return jsonify(response={"success": "Successfully added the new cafe."})
+
+
 @app.route("/update", methods=['PATCH'])
 def update():
     cafe_id = request.args.get("id")
@@ -71,31 +90,19 @@ def update():
 
 
 @app.route("/delete/<int:id>", methods=['DELETE'])
-def delete():
-    cafe_id = request.args.get(id)
-    cafe = db.session.query(Cafe).get(cafe_id)
+def delete(id):
     api_key = request.args.get("api-key")
     acceptable_api_keys = ['1', '2', '3']
     if api_key in acceptable_api_keys:
+        cafe = db.session.query(Cafe).get(id)
         if cafe:
-            cafe.delete()
+            db.session.delete(cafe)
+            db.session.commit()
             return jsonify(success="Successfully Deleted."), 200
         else:
             return jsonify(error={"Not Found": "There isn't a cafe with that ID in the database."}), 404
     else:
         return jsonify(error={"Error": "Not allowed - Check your API key"}), 403
-
-
-
-
-
-## HTTP GET - Read Record
-
-## HTTP POST - Create Record
-
-## HTTP PUT/PATCH - Update Record
-
-## HTTP DELETE - Delete Record
 
 
 if __name__ == '__main__':
