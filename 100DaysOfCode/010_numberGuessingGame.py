@@ -111,10 +111,11 @@ while game_on == 'y':
         if response == answer:
             print(" C O N G R A T U L A T I O N S !")
         elif attempts > 0:
-            print(f"\nATTEMPT #{len(guesses)+1}")
+            print(f"\nATTEMPT #{len(guesses) + 1}")
         else:
             print(f"\nGame Over. The number was {answer}")
 
     game_on = qa_str_input("\nWould you like to play another round? Type 'y' or 'n'. ", ['y', 'n'])
     print("\n" * 10)
 
+input("\nPress [ENTER] to close the program.")

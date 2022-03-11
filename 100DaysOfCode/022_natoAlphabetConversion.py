@@ -16,3 +16,5 @@ def generate_code():
 
 
 generate_code()
+
+input("\nPress [ENTER] to close the program.")

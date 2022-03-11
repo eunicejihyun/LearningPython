@@ -1,7 +1,7 @@
 import random
 
 illustration = {
-"rock" : '''
+    "rock": '''
     _______
 ---'   ____)
       (_____)
@@ -10,7 +10,7 @@ illustration = {
 ---.__(___)
 ''',
 
-"paper" : '''
+    "paper": '''
     _______
 ---'   ____)____
           ______)
@@ -19,7 +19,7 @@ illustration = {
 ---.__________)
 ''',
 
-"scissors" : '''
+    "scissors": '''
     _______
 ---'   ____)____
           ______)
@@ -48,15 +48,14 @@ print("Computer's Move:")
 print(illustration.get(computer))
 
 play = {"computer": computer,
-    "player": player}
+        "player": player}
 
 key_list = list(play.keys())
 val_list = list(play.values())
 
-
 if all(x in val_list for x in ["rock", "paper"]):
     winner = key_list[val_list.index("paper")]
-elif all(x in val_list  for x in ["scissors", "paper"]):
+elif all(x in val_list for x in ["scissors", "paper"]):
     winner = key_list[val_list.index("scissors")]
 elif all(x in val_list for x in ["scissors", "rock"]):
     winner = key_list[val_list.index("rock")]
@@ -69,3 +68,5 @@ if winner == 'computer':
     print("Better luck next time.")
 else:
     print("Great job!")
+
+input("\nPress [ENTER] to close the program.")

@@ -27,3 +27,5 @@ for i in range(5):
 print("\nPotential Band Names:")
 for i in bandNames:
     print(" " + i)
+
+input("\nPress [ENTER] to close the program.")

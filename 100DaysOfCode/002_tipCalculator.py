@@ -1,4 +1,3 @@
-
 print("Welcome to the tip calculator.\n")
 
 while True:
@@ -33,5 +32,6 @@ while True:
 
 individual_total = round((total + total * tip) / people, 2)
 
-print(f"\n----------\nEach person should pay: ${individual_total}")
+print(f"\n----------\nEach person should pay: ${'{:.2f}'.format(individual_total)}")
 
+input("\nPress [ENTER] to close the program.")

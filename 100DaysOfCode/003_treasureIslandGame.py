@@ -37,3 +37,5 @@ else:
             print("You win!!! Great job.")
         else:
             print("Game over.")
+
+input("\nPress [ENTER] to close the program.")

@@ -62,9 +62,8 @@ if pct_change >= 0.05 or pct_change < -0.05:
                           news_data]
     for article in formatted_articles:
         message = client.messages.create(
-            body=msg+article,
+            body=msg + article,
             from_=TRIAL_NUMBER,
             to=YOUR_NUMBER
         )
         print(message.status)
-
