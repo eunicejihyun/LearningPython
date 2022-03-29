@@ -1,7 +1,11 @@
 import json
 from tkinter import *
 from random import choice
+from bs4 import BeautifulSoup
+import requests
+import json
 
+WORDS_URL = "https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt"
 BLACK = "#121213"
 GRAY = "#3A3A3C"
 YELLOW = "#B59F3B"
@@ -9,8 +13,11 @@ GREEN = "#538D4E"
 LETTER_FONT = ("Consolas", 25)
 WORD_FILE = '500words.json'
 
-with open(WORD_FILE, mode='r') as file:
-    all_words = list(json.load(file))
+response = requests.get(WORDS_URL)
+html = response.text
+soup = BeautifulSoup(html, "html.parser")
+words = soup.find_all(name="td", class_="blob-code")
+all_words = [word.getText() for word in words]
 
 
 class UI:
@@ -59,7 +66,7 @@ class UI:
         self.display_dict = {}
         self.typing_entry.grid()
         self.typing_entry.focus_force()
-        self.correct=False
+        self.correct = False
 
         for x in range(25):
             guess = x // 5

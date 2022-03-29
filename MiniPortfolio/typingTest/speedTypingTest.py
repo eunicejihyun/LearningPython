@@ -2,7 +2,11 @@ from tkinter import *
 import json
 import random
 from time import time
+from bs4 import BeautifulSoup
+import requests
+import json
 
+WORDS_URL = "https://github.com/charlesreid1/five-letter-words/blob/master/sgb-words.txt"
 WORD_FILE = '500words.json'
 TOTAL_WORD_COUNT = 30
 BLUE = "#91CAFF"
@@ -11,13 +15,16 @@ RED = "#FD5D5D"
 BLACK = "#3A3845"
 WORD_FONT = ("Consolas", 12)
 
+response = requests.get(WORDS_URL)
+html = response.text
+soup = BeautifulSoup(html, "html.parser")
+words = soup.find_all(name="td", class_="blob-code")
+
 
 class TestUI:
 
     def __init__(self):
-        # open word file
-        with open(WORD_FILE, mode='r') as file:
-            self.all_words = json.load(file)
+        self.all_words = {word.getText(): "" for word in words}
 
         self.display_dict = {}
         self.word_count = 0

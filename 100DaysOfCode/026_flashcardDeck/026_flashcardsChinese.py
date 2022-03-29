@@ -107,14 +107,14 @@ def show_back():
     global side
     side = "back"
     definition = entry[1]["def"]
-    pronounciation = entry[1]["pro"]
+    pronunciation = entry[1]["pro"]
     # displayed = entry[1]["displayed"]
     # correct = entry[1]["displayed"]
 
     canvas.itemconfig(flashcard, image=CARD_BACK_IMG)
     canvas.itemconfig(language_text, text="English")
     canvas.itemconfig(word_text, text=definition, font=DEF_FONT)
-    canvas.itemconfig(pron_text, text=pronounciation)
+    canvas.itemconfig(pron_text, text=pronunciation)
 
 
 # TODO: TRACK CORRECT/INCORRECT ________________________________________________________________________________________
