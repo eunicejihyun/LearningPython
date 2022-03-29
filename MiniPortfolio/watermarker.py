@@ -1,6 +1,6 @@
 # Basic program to add watermark text to an image.
 # Use Up, Down, Left, Right arrow keys to move watermark text
-# Press Enter to save image
+# Press Ente r to save image
 
 # IMPORTS
 from tkinter import *
